@@ -14,11 +14,12 @@ if (builder.Configuration.GetValue("UseVault", false))
 
     seqUrl = secretClient.GetSecret("Seq--Url").Value.Value;
     seqApiKey = secretClient.GetSecret("Seq--ViolationPublisherApiKey").Value.Value;
-    
-    // TODO: should be added properly but for some reason doesn't work at the moment
-    // builder.Configuration.AddAzureKeyVault(
-    //     new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
-    //     new DefaultAzureCredential());
+
+    // TODO: we shouldnt need to do both the .GetSecret above and .AddAzureKeyVault - but for some reason at this point
+    // the Configuration["secret"] is not being read from the KV at this point
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
 }
 else
 {
