@@ -9,21 +9,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="451c3fe5-768e-456a-b1ee-8b8e29b0090c" name="Changes" comment="">
+    <list default="true" id="451c3fe5-768e-456a-b1ee-8b8e29b0090c" name="Changes" comment="fix kv">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ViolationPublisher/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ViolationPublisher/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViolationPublisher/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ViolationPublisher/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViolationPublisher/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/ViolationPublisher/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ViolationPublisher/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/ViolationPublisher/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/user-secrets-initialize.sh" beforeDir="false" afterPath="$PROJECT_DIR$/user-secrets-initialize.sh" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="DisabledMethodsStorage">
+    <option name="disabledMethods">
+      <set>
+        <option value="Azure.Security.KeyVault.Secrets : Azure.Security.KeyVault.Secrets.SecretClient : GetSecret (string, string, System.Threading.CancellationToken)" />
+      </set>
+    </option>
+  </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/24ccc77ceba55ba3bba6977c5d568bcbb171a281e3f74edfc542dfa3695c03f/AzureKeyVaultConfigurationExtensions.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/4339ea715f37b0f03d2b320e0045fb388f69ec8c11189ee29a9fc119d/SecretClient.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/709d621a809059a29bb7342e26263dcd3b33b461cb0f1542a4c84da8fee9ebe/WebApplication.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Users/azdziechowski/src/seq-violation-publisher/ViolationPublisher/Program.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -46,7 +51,7 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.ViolationPublisher">
+  <component name="RunManager" selected="Azure - Publish Web App.Publish ViolationPublisher to Azure">
     <configuration name="Publish ViolationPublisher to Azure" type="AzureDotNetWebAppPublish" factoryName="Azure Web App">
       <option name="AZURE_WEB_APP_PROJECT" value="$PROJECT_DIR$/ViolationPublisher/ViolationPublisher.csproj" />
       <option name="AZURE_WEB_APP_SUBSCRIPTION_ID" value="0d89afdb-d9d2-4c50-a97d-a1c2c6ada7e0" />
@@ -111,7 +116,7 @@
       <option name="presentableId" value="Default" />
       <updated>1684939777398</updated>
       <workItem from="1684939783459" duration="1405000" />
-      <workItem from="1684941560489" duration="1727000" />
+      <workItem from="1684941560489" duration="2033000" />
     </task>
     <task id="LOCAL-00001" summary="&#10;add">
       <created>1684939792206</created>
@@ -127,7 +132,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684941181546</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="fix kv">
+      <created>1684943518186</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1684943518186</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -150,7 +162,8 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="&#10;add" />
     <MESSAGE value="add kv" />
-    <option name="LAST_COMMIT_MESSAGE" value="add kv" />
+    <MESSAGE value="fix kv" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix kv" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
