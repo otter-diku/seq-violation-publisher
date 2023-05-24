@@ -1,22 +1,36 @@
 using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using ViolationPublisher;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var seqUrl = builder.Configuration.GetValue<string>("Seq:Url");
-var seqApikey = builder.Configuration.GetValue<string>("Seq:ApiKey");
+string? seqUrl;
+string? seqApiKey;
+if (builder.Configuration.GetValue("UseVault", false))
+{
+    var secretClient = new SecretClient(
+        new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
+
+    seqUrl = secretClient.GetSecret("Seq--Url").Value.Value;
+    seqApiKey = secretClient.GetSecret("Seq--ViolationPublisherApiKey").Value.Value;
+    
+    // TODO: should be added properly but for some reason doesn't work at the moment
+    // builder.Configuration.AddAzureKeyVault(
+    //     new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
+    //     new DefaultAzureCredential());
+}
+else
+{
+    seqUrl = builder.Configuration.GetValue<string>("Seq:Url");
+    seqApiKey = builder.Configuration.GetValue<string>("Seq:ViolationPublisherApiKey");
+}
 
 builder.Services.AddLogging(loggingBuilder =>
 {
-    loggingBuilder.AddSeq(seqUrl, seqApikey);
+    loggingBuilder.AddSeq(seqUrl, seqApiKey);
 });
 
-if (builder.Configuration.GetValue("UseVault", false))
-{
-    builder.Configuration.AddAzureKeyVault(
-        new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
-        new DefaultAzureCredential());
-}
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
