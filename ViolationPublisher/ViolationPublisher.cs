@@ -10,11 +10,19 @@ public class ViolationPublisherBackgroundService : BackgroundService
 
     public ViolationPublisherBackgroundService(IConfiguration configuration, ILogger<ViolationPublisherBackgroundService> logger)
     {
-        _logger = logger;
-        var consumerConfig = new ConsumerConfig();
-        configuration.GetSection("Kafka:ConsumerSettings").Bind(consumerConfig);
-        _kafkaConsumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
-        _topic = configuration.GetSection("Kafka:Topic").Value!;
+        try
+        {
+            _logger = logger;
+            var consumerConfig = new ConsumerConfig();
+            configuration.GetSection("Kafka:ConsumerSettings").Bind(consumerConfig);
+            _kafkaConsumer = new ConsumerBuilder<string, string>(consumerConfig).Build();
+            _topic = configuration.GetSection("Kafka:Topic").Value!;
+        }
+        catch (Exception e)
+        {
+            _logger.LogWarning(e, "Exception in bg service constructor");
+            throw;
+        }
     }
     
     protected override Task ExecuteAsync(CancellationToken stoppingToken)
@@ -29,6 +37,10 @@ public class ViolationPublisherBackgroundService : BackgroundService
                 _logger.LogInformation(
                     "[{Topic}]:[{MessageKey}]:[{MessageContent}]", _topic, cr.Message.Key, cr.Message.Value);
             }
+        }
+        catch (OperationCanceledException)
+        {
+            _logger.LogInformation("Stopping the background service...");
         }
         catch (Exception exception)
         {
