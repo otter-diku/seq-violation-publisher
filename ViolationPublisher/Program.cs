@@ -1,20 +1,22 @@
+using Azure.Identity;
 using ViolationPublisher;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var seqUrl = builder.Configuration.GetSection("Seq:Url").Value!;
-var seqApikey = builder.Configuration.GetSection("Seq:ApiKey").Value!;
+var seqUrl = builder.Configuration.GetValue<string>("Seq:Url");
+var seqApikey = builder.Configuration.GetValue<string>("Seq:ApiKey");
 
 builder.Services.AddLogging(loggingBuilder =>
 {
-    // loggingBuilder.ClearProviders();
     loggingBuilder.AddSeq(seqUrl, seqApikey);
 });
 
-// Seq.Extensions.Logging.SelfLog.Enable(Console.Error);
-// Seq.Extensions.Logging.SelfLog.Enable(message => {
-//     Console.WriteLine(message);
-// });
+if (builder.Configuration.GetValue("UseVault", false))
+{
+    builder.Configuration.AddAzureKeyVault(
+        new Uri($"https://{builder.Configuration["Vault:Name"]}.vault.azure.net/"),
+        new DefaultAzureCredential());
+}
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
