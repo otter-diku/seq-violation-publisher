@@ -1,6 +1,6 @@
 using Confluent.Kafka;
 
-namespace ViolationPublisher;
+namespace ViolationPublisher.Web;
 
 public class ViolationPublisherBackgroundService : BackgroundService
 {
@@ -29,29 +29,37 @@ public class ViolationPublisherBackgroundService : BackgroundService
     {
         _logger.LogDebug("Starting to execute background service. Subscribing to topic: {Topic}", _topic);
         _kafkaConsumer.Subscribe(_topic);
-        try
-        {
-            while (true)
+
+            while (!stoppingToken.IsCancellationRequested)
             {
-                var cr = _kafkaConsumer.Consume(stoppingToken);
-                _logger.LogInformation(
-                    "[{Topic}]:[{MessageKey}]:[{MessageContent}]", _topic, cr.Message.Key, cr.Message.Value);
+                try
+                {
+                    var cr = _kafkaConsumer.Consume(stoppingToken);
+                    _logger.LogInformation(
+                        "[Local][{Topic}]:[{MessageKey}]:[{MessageContent}]", _topic, cr?.Message?.Key, cr?.Message?.Value);
+                }
+                catch (ConsumeException consumeException) when (consumeException.Error.IsFatal)
+                {
+                    _logger.LogCritical(consumeException, "Fatal consume exception");
+                }
+                catch (ConsumeException consumeException)
+                {
+                    _logger.LogInformation(consumeException, "Recoverable consume exception");
+                }
+                catch (OperationCanceledException)
+                {
+                    _logger.LogInformation("Cancelling the background service...");
+                    break;
+                }
+                catch (Exception exception)
+                {
+                    _logger.LogWarning(exception, "Exception in the background service");
+                    break;
+                }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            _logger.LogInformation("Stopping the background service...");
-        }
-        catch (Exception exception)
-        {
-            _logger.LogWarning(exception, "Exception in the background service");
-        }
-        finally
-        {
+
             _logger.LogDebug("Closing the connection to kafka consumer");
             _kafkaConsumer.Close();
-        }
-
-        return Task.CompletedTask;
+            return Task.CompletedTask;
     }
 }

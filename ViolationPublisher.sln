@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolationPublisher", "ViolationPublisher\ViolationPublisher.csproj", "{1EFC0EA1-E000-4CF2-9593-1E2E0782EBE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViolationPublisher.Web", "ViolationPublisher.Web\ViolationPublisher.Web.csproj", "{C8B20C2D-317B-4542-A743-54E8248691BE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -8,9 +8,9 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1EFC0EA1-E000-4CF2-9593-1E2E0782EBE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EFC0EA1-E000-4CF2-9593-1E2E0782EBE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EFC0EA1-E000-4CF2-9593-1E2E0782EBE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EFC0EA1-E000-4CF2-9593-1E2E0782EBE6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8B20C2D-317B-4542-A743-54E8248691BE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8B20C2D-317B-4542-A743-54E8248691BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8B20C2D-317B-4542-A743-54E8248691BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8B20C2D-317B-4542-A743-54E8248691BE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
